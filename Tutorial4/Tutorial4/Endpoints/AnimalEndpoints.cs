@@ -1,4 +1,7 @@
-﻿namespace Tutorial4.Endpoints;
+﻿using Tutorial4.Database;
+using Tutorial4.Models;
+
+namespace Tutorial4.Endpoints;
 
 public static class AnimalEndpoints
 {
@@ -6,7 +9,9 @@ public static class AnimalEndpoints
     {
         app.MapGet("/animals", () =>
         {
-            return Results.Ok();
+            var animals = StaticData.animals;
+            
+            return Results.Ok(animals);
         });
 
         app.MapGet("/animals/{id}", (int id) =>
@@ -14,9 +19,9 @@ public static class AnimalEndpoints
             return Results.Ok(id);
         });
 
-        app.MapPost("/animals", () =>
+        app.MapPost("/animals", (Animal animal) =>
         {
-            return Results.Created();
+            return Results.Created("", animal);
         });
     }
 }
